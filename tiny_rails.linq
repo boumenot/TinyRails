@@ -197,49 +197,6 @@ public interface IScorer {
     double Score(Car[] cars);
 }
 
-// XXX: this method does not produce good results, use another.
-public class TheChrisMethod : IScorer {
-    public TheChrisMethod(Car[] cars) {
-        this.Count = cars.Length;
-        this.MaxCargo = cars.Max(x => x.Cargo);
-        this.MaxPassengers = cars.Max(x => x.Passengers);
-        this.MaxFood = cars.Max(x => x.Food);
-        this.MaxComfort = cars.Max(x => x.Comfort);
-        this.MaxEntertainment = cars.Max(x => x.Entertainment);
-        this.MaxFacilities = cars.Max(x => x.Facilities);
-    }
-    
-    public double Count { get; set; }
-    public int MaxCargo { get; set; }
-    public int MaxPassengers { get; set; }
-    public int MaxFood { get; set; }
-    public int MaxComfort { get; set; }
-    public int MaxEntertainment { get; set; }
-    public int MaxFacilities { get; set; }
-    
-    private double Score(Car car) {
-        double d = 0.0;
-        
-        d += (double)car.Cargo / this.MaxCargo;
-        d += (double)car.Passengers / this.MaxPassengers;
-        
-        d += (double)car.Food / this.MaxFood;
-        d += (double)car.Comfort / this.MaxComfort;
-        d += (double)car.Entertainment / this.MaxEntertainment;
-        d += (double)car.Facilities / this.MaxFacilities;
-        
-        return d;
-    }
-
-    public double Score(Car[] cars) {
-        return cars.Sum(x => this.Score(x));
-    }
-
-    public PriorityQueue<int[], double> CreatePQ() {
-        return new PriorityQueue<int[], double>();
-    }
-}
-
 // XXX: unclear if this is needed.  It should take into account the passenger count
 //      for a given car group.
 public class Euclidean : IScorer {
