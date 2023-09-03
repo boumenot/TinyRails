@@ -197,44 +197,6 @@ public interface IScorer {
     double Score(Car[] cars);
 }
 
-// XXX: unclear if this is needed.  It should take into account the passenger count
-//      for a given car group.
-public class Euclidean : IScorer {
-    private int clamp;
-
-    public Euclidean(int passenger_count, int car_count) {
-        this.clamp = passenger_count * car_count;
-    }
-    
-    public PriorityQueue<int[], double> CreatePQ() => new(new InverseComparer());
-
-    public double Score(Car[] cars) {
-        int com = 0;
-        int ent = 0;
-        int fac = 0;
-        int foo = 0;
-    
-        foreach (var car in cars) {
-            com += car.Comfort;
-            ent += car.Entertainment;
-            fac += car.Facilities;
-            foo += car.Food;
-        }
-        
-        double d = 0.0;
-        d += Math.Pow(this.clamp - this.Clamp(com), 2);
-        d += Math.Pow(this.clamp - this.Clamp(ent), 2);
-        d += Math.Pow(this.clamp - this.Clamp(fac), 2);
-        d += Math.Pow(this.clamp - this.Clamp(foo), 2);
-        
-        return Math.Sqrt(d);
-    }
-    
-    private int Clamp(int value) {
-        return value <= this.clamp ? value : this.clamp;
-    }
-}
-
 public class PassengerBonus : IScorer {
     private int passenger_count;
 
