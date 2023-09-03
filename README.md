@@ -68,12 +68,12 @@ considered.
 
 <center>
 
-$\left(\!
+$`\left(\!
     \begin{array}{c}
       n \\
       r
     \end{array}
-  \!\right) = \frac{n!}{r!(n-r)!}$
+  \!\right) = \frac{n!}{r!(n-r)!}`$
 
 </center>
 
